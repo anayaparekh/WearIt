@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Student Survival Hub</title>
+
+  <style>
+
+    * {
+
+      box-sizing: border-box;
+
+    }
+
+    body {
+
+      margin: 0;
+
+      font-family: Arial, sans-serif;
+
+      background: #f5f4fb;
+
+      color: #292943;
+
+    }
+
+    header {
+
+      background: #7771c9;
+
+      color: white;
+
+      text-align: center;
+
+      padding: 28px 20px;
+
+    }
+
+    header h1 {
+
+      margin: 0 0 8px;
+
+    }
+
+    nav {
+
+      display: flex;
+
+      justify-content: center;
+
+      flex-wrap: wrap;
+
+      gap: 10px;
+
+      padding: 15px;
+
+      background: white;
+
+    }
+
+    nav button {
+
+      border: none;
+
+      background: #eeecfa;
+
+      color: #48428e;
+
+      padding: 12px 20px;
+
+      border-radius: 20px;
+
+      cursor: pointer;
+
+    }
+
+    nav button:hover,
+
+    nav button.active {
+
+      background: #7771c9;
+
+      color: white;
+
+    }
+
+    main {
+
+      max-width: 950px;
+
+      margin: 30px auto;
+
+      padding: 0 20px;
+
+      min-height: 400px;
+
+    }
+
+    .page {
+
+      display: none;
+
+    }
+
+    .page.active {
+
+      display: block;
+
+    }
+
+    .hero {
+
+      background: #e6e3fa;
+
+      padding: 30px;
+
+      border-radius: 18px;
+
+      margin-bottom: 22px;
+
+    }
+
+    .cards {
+
+      display: grid;
+
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+      gap: 18px;
+
+    }
+
+    .card {
+
+      background: white;
+
+      padding: 23px;
+
+      border-radius: 16px;
+
+      box-shadow: 0 4px 14px #2929430c;
+
+    }
+
+    .emoji {
+
+      font-size: 32px;
+
+    }
+
+    .primary {
+
+      border: none;
+
+      border-radius: 10px;
+
+      padding: 12px 18px;
+
+      background: #7771c9;
+
+      color: white;
+
+      cursor: pointer;
+
+    }
+
+    .primary:hover {
+
+      background: #5d56ac;
+
+    }
+
+    input, select {
+
+      width: 100%;
+
+      padding: 12px;
+
+      border: 1px solid #d8d6e8;
+
+      border-radius: 9px;
+
+      margin: 7px 0 14px;
+
+      font-size: 15px;
+
+      background: white;
+
+    }
+
+    label {
+
+      font-weight: bold;
+
+      font-size: 14px;
+
+    }
+
+    .assignment {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 12px;
+
+      background: white;
+
+      padding: 15px;
+
+      border-radius: 12px;
+
+      margin-top: 12px;
+
+      border-left: 5px solid #7771c9;
+
+    }
+
+    .assignment input {
+
+      width: auto;
+
+      margin: 0;
+
+    }
+
+    .assignment-details {
+
+      flex: 1;
+
+      overflow-wrap: anywhere;
+
+    }
+
+    .assignment-details p {
+
+      margin: 5px 0 0;
+
+      color: #73718a;
+
+      font-size: 14px;
+
+    }
+
+    .completed {
+
+      opacity: 0.6;
+
+      text-decoration: line-through;
+
+    }
+
+    .delete {
+
+      border: none;
+
+      background: #fce8eb;
+
+      color: #a52c43;
+
+      padding: 8px 10px;
+
+      border-radius: 8px;
+
+      cursor: pointer;
+
+    }
+
+    .tip {
+
+      border-left: 5px solid #a49ee8;
+
+    }
+
+    footer {
+
+      text-align: center;
+
+      color: #77758c;
+
+      padding: 25px;
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <header>
+
+    <h1>📚 Student Survival Hub</h1>
+
+    <p>Your little corner for staying organized and succeeding in school.</p>
+
+  </header>
+
+  <nav>
+
+    <button class="active" onclick="showPage('home', this)">Home</button>
+
+    <button onclick="showPage('homework', this)">Homework Tracker</button>
+
+    <button onclick="showPage('tips', this)">Study Tips</button>
+
+  </nav>
+
+  <main>
+
+    <!-- PAGE 1: HOME -->
+
+    <section id="home" class="page active">
+
+      <div class="hero">
+
+        <h2>School feels easier when you have a plan ✨</h2>
+
+        <p>
+
+          Welcome to your Student Survival Hub! Keep track of assignments,
+
+          discover study strategies, and take school one step at a time.
+
+        </p>
+
+        <button class="primary"
+
+          onclick="showPage('homework', document.querySelectorAll('nav button')[1])">
+
+          Organize My Homework →
+
+        </button>
+
+      </div>
+
+      <h2>Your School Success Toolkit</h2>
+
+      <div class="cards">
+
+        <div class="card">
+
+          <div class="emoji">📝</div>
+
+          <h3>Stay Organized</h3>
+
+          <p>Keep your assignments in one place and know what to work on next.</p>
+
+          <button class="primary"
+
+            onclick="showPage('homework', document.querySelectorAll('nav button')[1])">
+
+            Track Homework
+
+          </button>
+
+        </div>
+
+        <div class="card">
+
+          <div class="emoji">🧠</div>
+
+          <h3>Study Smarter</h3>
+
+          <p>Discover helpful ways to remember information and prepare for tests.</p>
+
+          <button class="primary"
+
+            onclick="showPage('tips', document.querySelectorAll('nav button')[2])">
+
+            Explore Tips
+
+          </button>
+
+        </div>
+
+        <div class="card">
+
+          <div class="emoji">🌟</div>
+
+          <h3>Stay Motivated</h3>
+
+          <p>You don't have to do everything at once. Small steps make a difference!</p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PAGE 2: HOMEWORK TRACKER -->
+
+    <section id="homework" class="page">
+
+      <div class="hero">
+
+        <h2>My Homework Tracker 📝</h2>
+
+        <p>Add assignments, keep track of due dates, and check off work as you finish.</p>
+
+      </div>
+
+      <div class="card">
+
+        <form id="homeworkForm">
+
+          <label for="task">Assignment Name</label>
+
+          <input id="task" type="text"
+
+            placeholder="e.g. Chemistry review" required>
+
+          <label for="subject">Subject</label>
+
+          <select id="subject" required>
+
+            <option value="">Choose a subject</option>
+
+            <option>Math</option>
+
+            <option>Science</option>
+
+            <option>English</option>
+
+            <option>History</option>
+
+            <option>Language</option>
+
+            <option>Other</option>
+
+          </select>
+
+          <label for="dueDate">Due Date</label>
+
+          <input id="dueDate" type="date" required>
+
+          <button class="primary" type="submit">+ Add Assignment</button>
+
+        </form>
+
+      </div>
+
+      <h2>My Assignments</h2>
+
+      <p id="taskCount">You have 0 assignments left.</p>
+
+      <div id="assignmentList">
+
+        <p>No assignments yet. Add one above to get started!</p>
+
+      </div>
+
+    </section>
+
+    <!-- PAGE 3: STUDY TIPS -->
+
+    <section id="tips" class="page">
+
+      <div class="hero">
+
+        <h2>Study Smarter, Not Longer 🧠</h2>
+
+        <p>Try these simple strategies to make studying more effective.</p>
+
+      </div>
+
+      <div class="cards">
+
+        <div class="card tip">
+
+          <div class="emoji">⏰</div>
+
+          <h3>Pomodoro Method</h3>
+
+          <p>Focus for 25 minutes, then take a 5-minute break before continuing.</p>
+
+        </div>
+
+        <div class="card tip">
+
+          <div class="emoji">🔁</div>
+
+          <h3>Active Recall</h3>
+
+          <p>Close your notes and explain what you remember. Check your notes afterward.</p>
+
+        </div>
+
+        <div class="card tip">
+
+          <div class="emoji">📆</div>
+
+          <h3>Space Out Studying</h3>
+
+          <p>Review material over several days instead of cramming the night before.</p>
+
+        </div>
+
+        <div class="card tip">
+
+          <div class="emoji">📵</div>
+
+          <h3>Reduce Distractions</h3>
+
+          <p>Put away distractions and keep the materials you need nearby.</p>
+
+        </div>
+
+        <div class="card tip">
+
+          <div class="emoji">❓</div>
+
+          <h3>Practice Questions</h3>
+
+          <p>Use flashcards, practice problems, and self-made quizzes to test your knowledge.</p>
+
+        </div>
+
+        <div class="card tip">
+
+          <div class="emoji">💤</div>
+
+          <h3>Get Enough Rest</h3>
+
+          <p>Taking breaks and getting enough sleep can help you focus and learn.</p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <footer>
+
+    <p>Student Survival Hub © 2026 | One step at a time. 💜</p>
+
+  </footer>
+
+  <script>
+
+    // Switch between the three pages
+
+    function showPage(pageId, button) {
+
+      document.querySelectorAll('.page').forEach(function(page) {
+
+        page.classList.remove('active');
+
+      });
+
+      document.getElementById(pageId).classList.add('active');
+
+      document.querySelectorAll('nav button').forEach(function(btn) {
+
+        btn.classList.remove('active');
+
+      });
+
+      if (button && button.closest('nav')) {
+
+        button.classList.add('active');
+
+      }
+
+    }
+
+    // Store homework assignments
+
+    let assignments = [];
+
+    let nextId = 1;
+
+    const homeworkForm = document.getElementById('homeworkForm');
+
+    homeworkForm.addEventListener('submit', function(event) {
+
+      event.preventDefault();
+
+      const task = document.getElementById('task').value.trim();
+
+      const subject = document.getElementById('subject').value;
+
+      const dueDate = document.getElementById('dueDate').value;
+
+      if (!task || !subject || !dueDate) return;
+
+      assignments.push({
+
+        id: nextId++,
+
+        task: task,
+
+        subject: subject,
+
+        dueDate: dueDate,
+
+        completed: false
+
+      });
+
+      homeworkForm.reset();
+
+      renderAssignments();
+
+    });
+
+    // Display homework assignments
+
+    function renderAssignments() {
+
+      const list = document.getElementById('assignmentList');
+
+      const remaining = assignments.filter(function(item) {
+
+        return !item.completed;
+
+      }).length;
+
+      document.getElementById('taskCount').textContent =
+
+        'You have ' + remaining + ' assignment' +
+
+        (remaining === 1 ? '' : 's') + ' left.';
+
+      list.replaceChildren();
+
+      if (assignments.length === 0) {
+
+        list.textContent = 'No assignments yet. Add one above to get started!';
+
+        return;
+
+      }
+
+      assignments.forEach(function(item) {
+
+        const row = document.createElement('div');
+
+        row.className = 'assignment';
+
+        const checkbox = document.createElement('input');
+
+        checkbox.type = 'checkbox';
+
+        checkbox.checked = item.completed;
+
+        checkbox.setAttribute('aria-label', 'Mark assignment complete');
+
+        checkbox.addEventListener('change', function() {
+
+          item.completed = checkbox.checked;
+
+          renderAssignments();
+
+        });
+
+        const details = document.createElement('div');
+
+        details.className = 'assignment-details';
+
+        const title = document.createElement('strong');
+
+        title.textContent = item.task;
+
+        if (item.completed) {
+
+          title.className = 'completed';
+
+        }
+
+        const info = document.createElement('p');
+
+        info.textContent = item.subject + ' • Due: ' + item.dueDate;
+
+        details.append(title, info);
+
+        const deleteButton = document.createElement('button');
+
+        deleteButton.className = 'delete';
+
+        deleteButton.textContent = 'Delete';
+
+        deleteButton.addEventListener('click', function() {
