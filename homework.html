@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Survival Hub | Homework</title>
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f4fb;
+  color: #292943;
+}
+header {
+  background: #7771c9;
+  color: white;
+  text-align: center;
+  padding: 30px 15px;
+}
+nav {
+  background: white;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+nav a {
+  text-decoration: none;
+  padding: 12px 18px;
+  border-radius: 20px;
+  background: #eeecfa;
+  color: #48428e;
+}
+nav a:hover, nav a.active {
+  background: #7771c9;
+  color: white;
+}
+main {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+.hero {
+  background: #e6e3fa;
+  padding: 25px;
+  border-radius: 18px;
+  margin-bottom: 20px;
+}
+.card {
+  background: white;
+  padding: 24px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px #0000000d;
+}
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 14px;
+}
+input, select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  margin-top: 7px;
+  border: 1px solid #d8d6e8;
+  border-radius: 8px;
+  background: white;
+  font-size: 15px;
+}
+.primary {
+  background: #7771c9;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  margin-top: 18px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+.assignment {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 12px 0;
+  border-left: 5px solid #7771c9;
+}
+.assignment input {
+  width: auto;
+}
+.details { flex: 1; overflow-wrap: anywhere; }
+.details p { color: #77758c; font-size: 13px; }
+.done { text-decoration: line-through; opacity: 0.6; }
+.delete {
+  background: #fce8eb;
+  color: #a52c43;
+  border: none;
+  padding: 9px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #77758c;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📝 Homework Tracker</h1>
+  <p>Keep your assignments organized and stay on top of your work!</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="homework.html" class="active">Homework Tracker</a>
+  <a href="tips.html">Study Tips</a>
+</nav>
+
+<main>
+  <section class="hero">
+    <h2>Your assignments, all in one place!</h2>
+    <p>Add your schoolwork below. Check off each task when you finish it.</p>
+  </section>
+
+  <section class="card">
+    <form id="homeworkForm">
+      <label for="task">Assignment Name</label>
+      <input id="task" type="text" placeholder="Example: Chemistry study guide" required>
+
+      <label for="subject">Subject</label>
+      <select id="subject" required>
+        <option value="">Choose a subject</option>
+        <option>Math</option>
+        <option>Science</option>
+        <option>English</option>
+        <option>History</option>
+        <option>Language</option>
+        <option>Other</option>
+      </select>
+
+      <label for="dueDate">Due Date</label>
+      <input id="dueDate" type="date" required>
+
+      <button class="primary" type="submit">+ Add Assignment</button>
+    </form>
+  </section>
+
+  <h2>My Assignments</h2>
+  <p id="count">You have 0 assignments left.</p>
+  <div id="list"></div>
+</main>
+
+<footer>
+  <p>Student Survival Hub © 2026 💜</p>
+</footer>
+
+<script>
+let assignments = [];
+let nextId = 1;
+
+const form = document.getElementById("homeworkForm");
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  assignments.push({
+    id: nextId++,
+    task: document.getElementById("task").value.trim(),
+    subject: document.getElementById("subject").value,
+    dueDate: document.getElementById("dueDate").value,
+    completed: false
+  });
+
+  form.reset();
+  renderAssignments();
+});
+
+function renderAssignments() {
+  const list = document.getElementById("list");
+  list.replaceChildren();
+
+  const remaining = assignments.filter(a => !a.completed).length;
+  document.getElementById("count").textContent =
+    "You have " + remaining + " assignment" +
+    (remaining === 1 ? "" : "s") + " left.";
+
+  if (assignments.length === 0) {
+    list.textContent = "No assignments yet. Add one above!";
+    return;
+  }
+
+  assignments.forEach(function(item) {
+    const row = document.createElement("div");
+    row.className = "assignment";
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = item.completed;
+    checkbox.setAttribute("aria-label", "Mark assignment complete");
+
+    checkbox.addEventListener("change", function() {
+      item.completed = checkbox.checked;
+      renderAssignments();
+    });
+
+    const details = document.createElement("div");
+    details.className = "details";
+
+    const title = document.createElement("strong");
+    title.textContent = item.task;
+    if (item.completed) title.className = "done";
+
+    const info = document.createElement("p");
+    info.textContent = item.subject + " | Due: " + item.dueDate;
+
+    details.append(title, info);
+
+    const remove = document.createElement("button");
+    remove.className = "delete";
+    remove.textContent = "Delete";
+
+    remove.addEventListener("click", function() {
+      assignments = assignments.filter(a => a.id !== item.id);
+      renderAssignments();
+    });
+
+    row.append(checkbox, details, remove);
+    list.appendChild(row);
+  });
+}
+
+renderAssignments();
+</script>
+
+</body>
+</html>
